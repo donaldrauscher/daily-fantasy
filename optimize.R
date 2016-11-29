@@ -86,12 +86,15 @@ set.type(ip, columns = 1:nrow(players), type = c("binary"))
 lp.control(ip, sense = args$`obj-dir`)
 
 # solve
-solve(ip)
+status <- solve(ip)
 
-# need to catch if don't have a solution...
-
-soln <- tail(get.primal.solution(ip), nrow(players))
-print('Solution:')
-print(players[soln == 1,])
-print(paste0('Expectation: ', round(sum(players$Proj[soln == 1]),1)))
-print(paste0('Standard Deviation: ', round(sqrt(sum((players$SD[soln == 1])^2)),1)))
+if (status == 0){
+	soln <- tail(get.primal.solution(ip), nrow(players))
+	print('Optimal solution found!')
+	print('Solution:')
+	print(players[soln == 1,])
+	print(paste0('Expectation: ', round(sum(players$Proj[soln == 1]),1)))
+	print(paste0('Standard Deviation: ', round(sqrt(sum((players$SD[soln == 1])^2)),1)))
+} else {
+	print(paste0('Solution not found: ', meta$OPTIMIZ_CODES[[status]]))
+}

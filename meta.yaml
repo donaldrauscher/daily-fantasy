@@ -105,3 +105,19 @@ NF_TEAM_MAP:
 NF_DAILY_FANTASY_URL: 'https://www.numberfire.com/nfl/daily-fantasy/daily-football-projections'
 NF_REG_FANTASY_URL: 'https://www.numberfire.com/nfl/fantasy/fantasy-football-projections'
 NFL_API_URL: 'http://api.fantasy.nfl.com/v1'
+
+# optimization codes
+OPTIMIZ_CODES:
+  0: "optimal solution found"
+  1: "the model is sub-optimal"
+  2: "the model is infeasible"
+  3: "the model is unbounded"
+  4: "the model is degenerate"
+  5: "numerical failure encountered"
+  6: "process aborted"
+  7: "timeout"
+  9: "the model was solved by presolve"
+  10: "the branch and bound routine failed"
+  11: "the branch and bound was stopped because of a break-at-first or break-at-value"
+  12: "a feasible branch and bound solution was found"
+  13: "no feasible branch and bound solution was found"
