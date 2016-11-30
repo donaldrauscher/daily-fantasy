@@ -83,7 +83,7 @@ add.constraint(ip, xt = players$Cost, type = "<=", rhs = meta$BUDGET)
 
 set.objfn(ip, obj = get(args$obj))
 set.type(ip, columns = 1:nrow(players), type = c("binary"))
-lp.control(ip, sense = args$`obj-dir`)
+options <- lp.control(ip, sense = args$`obj-dir`)
 
 # solve
 status <- solve(ip)
