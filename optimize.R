@@ -8,6 +8,7 @@ library(yaml)
 # --constraint='exp>=120'		...   character; constraint on either expectation or variance
 # --force-include='<NAME>'	...   character; force include specific player into solution
 # --force-exclude='<NAME>'	...   character; force exclude specific player into solution
+# --exclude-gtd=1						...   boolean; exclude any players with Inj='GTD'
 
 # get args
 args <- commandArgs(TRUE)
@@ -36,6 +37,9 @@ if (is.null(args$`obj-dir`)){
 if (is.null(args$`proj-percentile`)){
 	args$`proj-percentile` <- 0.5
 }
+if (is.null(args$`exclude-gtd`)){
+	args$`exclude-gtd` <- 0
+}
 
 # extract constraints
 parse_constraint <- function(x){
@@ -55,6 +59,12 @@ forced_excludes <- as.vector(args[which(names(args) == 'force-exclude')])
 # inputs
 players	<- read.csv('./data/players.csv', header=TRUE, stringsAsFactors = FALSE)
 meta <- yaml.load_file('meta.yaml')
+
+# exclude any players with Inj='OUT'
+players <- players[players$Inj!='OUT',]
+if (args$`exclude-gtd` == 1){
+	players <- players[players$Inj!='GTD',]
+}
 
 # make expectation and variance
 exp <- qnorm(as.numeric(args$`proj-percentile`), mean=players$Proj, sd=players$SD)
